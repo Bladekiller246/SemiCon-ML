@@ -132,6 +132,29 @@ Two separate artifacts, different causes, different fixes:
    noise, because it isn't. (`tools/test_clipping.py`-style tests; see
    conversation history for the exact numbers if needed.)
 
+### Confirmed NOT caused by gamma augmentation (`augment_gt`, `src/degradation.py`)
+Raised as a hypothesis since gamma augmentation *is* a real intensity
+transform in the pipeline (§ "color grading" discussion) and artifact
+severity correlates with brightness. Ruled out by the same two proofs above,
+both of which bypass the training-augmentation pipeline entirely:
+- The pattern exists at **random init, before any training step** — no
+  augmentation has been applied to anything yet.
+- The constant-input test never touches `augment_gt` at all — it's a
+  synthetic probe fed straight to the model, not a training pair.
+- Structurally: `x**gamma` is a pointwise value transform with no spatial
+  structure of its own; it cannot inject a specific exact spatial frequency
+  (period-2 / period-4) into learned weights.
+
+**One unproven, low-priority nuance worth a glance when reviewing the new
+run's results**: gamma augmentation could still have a *secondary* influence
+on how well-calibrated the trained network's brightness-dependent response
+is (not on whether the artifact exists, only on how evenly its severity is
+suppressed across brightness levels), since it changes what brightness range
+the model sees most during training. If `tools/check_artifact_quality.py`
+run on `runs/final` still shows a strong brightness-correlation in residual
+artifact after the new fixes, this is worth a second look — otherwise treat
+it as noise.
+
 ### What actually works, ranked
 
 1. **Deterministic FFT notch (`evaluate.py::notch_artifacts`, `--post notch`,
