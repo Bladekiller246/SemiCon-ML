@@ -1,0 +1,15 @@
+﻿.venv/
+__pycache__/
+*.pyc
+train/
+Test_NoisyLR/
+train.zip
+Test_NoisyLR.zip
+NAFNet-main/
+NAFNet-main.zip
+runs/
+outputs_*/
+*.log
+
+.claude/
+Devens_gt_triptych.png
