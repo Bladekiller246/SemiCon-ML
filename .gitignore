@@ -9,6 +9,9 @@ NAFNet-main/
 NAFNet-main.zip
 runs/
 outputs_*/
+# submission deliverable: the restored test-set outputs must ship in the repo,
+# so this one is re-included despite the outputs_*/ rule above
+!outputs_final/
 *.log
 
 .claude/

@@ -8,6 +8,77 @@ A NAFNet-derived image restoration model built for the **SemiCon AI Hackathon (K
 
 ---
 
+## 0. Quick start — clone and run inference
+
+**Requirements:** Python 3.10+ and [Git LFS](https://git-lfs.com). A CUDA GPU is optional — the script falls back to CPU automatically.
+
+```bash
+# 1. Install Git LFS first, or the model weights arrive as a text pointer, not a model
+git lfs install
+
+# 2. Clone (LFS files download automatically once LFS is installed)
+git clone https://github.com/Bladekiller246/SemiCon-ML.git
+cd SemiCon-ML
+
+# 3. If you cloned BEFORE installing Git LFS, fetch the real weights now
+git lfs pull
+
+# 4. Install dependencies
+python -m venv .venv
+.venv/Scripts/activate          # Windows
+# source .venv/bin/activate     # Linux / macOS
+
+# NOTE: requirements.txt pins torch 2.13.0+cu126 (CUDA 12.6). The "+cu126"
+# builds are NOT on PyPI, so the PyTorch index must be added:
+pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu126
+
+# CPU-only machine? Install plain torch instead, then the rest:
+#   pip install torch numpy pillow
+# Inference falls back to CPU automatically.
+
+# 5. Verify the model loads (no input data needed)
+python evaluate.py --self-test
+
+# 6. Run inference
+python evaluate.py <input_dir> <output_dir>
+```
+
+Only `torch`, `numpy` and `pillow` are needed for **inference**. The remaining
+packages (`lpips`, `torchvision`, `scipy`, `tqdm`) are used solely by the
+metric/reporting tools in `tools/`.
+
+### Confirming it worked
+
+`--self-test` must print **`config=m`**. If it prints `config=m (untrained)` the weights did not load — run `git lfs pull` and check the file size:
+
+```bash
+du -h weights/best.pt       # must be ~446M, not ~130 bytes (an LFS pointer)
+```
+
+Expected self-test output (the printed range varies — the self-test feeds random data):
+
+```
+[self-test] config=m (4, 1, 128, 128) -> (4, 1, 256, 256)  range [0.000, 0.999]  OK
+```
+
+### Input / output contract
+
+| | format |
+|---|---|
+| **Input** | `.npy` float32, `H×W` grayscale (128×128 for this task). `.png/.tif/.bmp` also accepted as a fallback. |
+| **Output** | `.npy` float32, `2H×2W`, values in `[0, 1]`, **same basename as the input** |
+
+`evaluate.py` needs no manual edits — it resolves `weights/best.pt` relative to the script (not the working directory), accepts either positional or flagged paths, and never writes outside `output_dir`.
+
+```bash
+python evaluate.py Test_NoisyLR/NoisyLR outputs_final          # positional
+python evaluate.py --input_dir <in> --output_dir <out>         # flagged
+```
+
+Pre-generated outputs for the provided test set are committed in **`outputs_final/`** (400 images).
+
+---
+
 ## 1. Headline results
 
 Measured on the **320-image held-out validation split** (source-aware, leakage-verified), `notch` post-processing, `data_range=1.0`.
