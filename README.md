@@ -245,7 +245,7 @@ Their data has never passed through a lossy codec. The detector is sensitive eno
 
 Output is **softer than ground truth** — gradient ratio **0.712** against GT's 1.000. This affects roughly a third of images, concentrated in high-texture content.
 
-Four independent attempts to fix it all failed (rows 1–4 above). Error maps (`diff_maps.png`) show why: on structured content the error is a thin outline along edges (sub-pixel boundary placement, benign), but on pure-texture content it is uniform grain across the whole frame — **that texture is destroyed by the degradation and is not recoverable**. When MS-SSIM tried to synthesize it, it invented lattice patterns and scored worse on every metric.
+Four independent attempts to fix it all failed (rows 1–4 above). Error maps (`results/figures/diff_maps.png`) show why: on structured content the error is a thin outline along edges (sub-pixel boundary placement, benign), but on pure-texture content it is uniform grain across the whole frame — **that texture is destroyed by the degradation and is not recoverable**. When MS-SSIM tried to synthesize it, it invented lattice patterns and scored worse on every metric.
 
 **This is an information limit, not a tuning failure.**
 
@@ -301,22 +301,30 @@ python tools/full_eval.py --weights weights/best.pt
 ## 10. Repository layout
 
 ```
-nafnet_sr.py        model definition (NAFNet body + adapted SR ends)
-train.py            training entry point
+README.md           this file
 evaluate.py         inference / submission script (notch post-processing)
+train.py            training entry point
+nafnet_sr.py        model definition (NAFNet body + adapted SR ends)
+requirements.txt    pip freeze of the training environment
 weights/best.pt     shipped checkpoint (config m, step 35999, 29.469 dB)
+outputs_final/      restored outputs for the 400 provided test images
+
 src/
   data.py           source-aware GPU-resident dataset
   degradation.py    fitted forward-model simulator
   losses.py         composite training loss
   metrics.py        PSNR/SSIM (skimage-matched) + post-processing
-tools/
-  fit_kernel.py     least-squares downsampling-kernel solve
-  full_eval.py      PSNR/SSIM/LPIPS + comparison grids
-  trace_stages.py   artifact localisation
-  baseline.py       floor and ceiling computation
-runs/               training checkpoints and per-run metrics
-CHECKPOINT.md       detailed rollback reference: every experiment + result
+tools/              diagnostics: kernel fitting, full_eval, artifact tracing
+scripts/            ablation sweep shell scripts
+
+results/
+  figures/          key result figures (referenced throughout this README)
+  diagnostics/      exploratory analysis images from the investigation
+  metrics/          per-image PSNR/SSIM/LPIPS CSVs
+docs/
+  CHECKPOINT.md     detailed rollback reference: every experiment + result
+  PROMPT.md         working notes, baselines, ceiling analysis
+  reference/        problem statement and provided reference PDFs
 ```
 
 **Performance note:** the entire dataset lives on the GPU (500 MB fp16). No DataLoader, no workers, no host↔device copies during training — the honest answer to the brief's "optimize disk reads / data transfer".
@@ -327,13 +335,13 @@ CHECKPOINT.md       detailed rollback reference: every experiment + result
 
 | File | Shows |
 |---|---|
-| `eval_final_grid.png` | input → output → GT, 6 images spanning worst→best PSNR |
-| `diff_maps.png` | per-pixel error maps; edge vs texture failure modes |
-| `kaggle_noise_grid.png` | OOD robustness across noise types |
-| `eval_final_metrics.csv` | per-image PSNR/SSIM/LPIPS, all 320 images |
-| `probe_w32_vs_w48.png` | width-48 capacity probe (negative result) |
-| `compare_heads.png` | head comparison |
-| `trace_stages.png` | artifact traced through the pipeline |
+| `results/figures/eval_final_grid.png` | input → output → GT, 6 images spanning worst→best PSNR |
+| `results/figures/diff_maps.png` | per-pixel error maps; edge vs texture failure modes |
+| `results/figures/kaggle_noise_grid.png` | OOD robustness across noise types |
+| `results/metrics/eval_final_metrics.csv` | per-image PSNR/SSIM/LPIPS, all 320 images |
+| `results/figures/probe_w32_vs_w48.png` | width-48 capacity probe (negative result) |
+| `results/figures/compare_heads.png` | head comparison |
+| `results/figures/trace_stages.png` | artifact traced through the pipeline |
 
 ---
 
@@ -344,7 +352,7 @@ CHECKPOINT.md       detailed rollback reference: every experiment + result
 3. **Fitted degradation model** — 26.2M-equation kernel solve, R²=0.975 noise fit; *we measured the forward model rather than guessing it* (§4)
 4. **Training rigour** — source-aware split, the 100% leakage bug we found and fixed (§4)
 5. **Results** — headline table + floor/ceiling context, 62% of available gain (§1)
-6. **Visual results** — `eval_final_grid.png` (§11)
+6. **Visual results** — `results/figures/eval_final_grid.png` (§11)
 7. **The artifact investigation** — traced clip→amplification chain, notch fix, +1.35 dB free (§5)
 8. **What we rejected and why** — the negative-results table; measured, not assumed (§7)
 9. **Robustness + limitations** — OOD noise types, JPEG verification, the honest softness limit (§6, §7)
