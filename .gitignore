@@ -28,3 +28,7 @@ Screenshot*.png
 Extra_DataSet(Kaggle)/
 Extra_DataSet(Kaggle).zip
 test_single_out/
+
+# personal working notes - kept locally, not published
+docs/PROMPT.md
+PROMPT.md

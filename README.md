@@ -326,7 +326,6 @@ logs/               raw training + ablation logs; every number quoted in this
                     the shipped run's full validation curve)
 docs/
   CHECKPOINT.md     detailed rollback reference: every experiment + result
-  PROMPT.md         working notes, baselines, ceiling analysis
   reference/        problem statement and provided reference PDFs
 ```
 
