@@ -325,7 +325,6 @@ logs/               raw training + ablation logs; every number quoted in this
                     README is traceable to one of these (e.g. final.log holds
                     the shipped run's full validation curve)
 docs/
-  CHECKPOINT.md     detailed rollback reference: every experiment + result
   reference/        problem statement and provided reference PDFs
 ```
 
