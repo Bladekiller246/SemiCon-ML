@@ -1,0 +1,44 @@
+[data] loading 3200 pairs from train/train ...
+[data] train=2880 val=320 resident on cuda (500 MB, torch.float16)
+[model] config=s head=resize_conv residual=none input_transform=affine params=13.32M
+[train] 6000 iters, batch 16, warmup 120 (2.0%), synth_ratio 0.5, amp bf16
+  step    3000/6000  lr 5.17e-04  loss 0.13327  6.1 it/s  eta 0.14h
+  [val 3000]  clip 24.860dB/0.5921   minmax 20.915dB/0.5713   robust 20.695dB/0.5660   | OOD 17.198dB/0.3651 | grad 1.159 hf 2.37
+  [val] new best 24.860 dB -> best.pt
+  step    6000/6000  lr 1.00e-06  loss 0.11806  6.0 it/s  eta 0.00h
+  [val 6000]  clip 25.133dB/0.6085   minmax 21.175dB/0.5867   robust 20.912dB/0.5824   | OOD 18.137dB/0.3794 | grad 1.150 hf 2.26
+  [val] new best 25.133 dB -> best.pt
+[done] best val PSNR 25.133 dB   weights in runs\a_nores
+[data] loading 3200 pairs from train/train ...
+[data] train=2880 val=320 resident on cuda (500 MB, torch.float16)
+[model] config=s head=resize_conv residual=gated input_transform=affine params=13.32M
+[train] 6000 iters, batch 16, warmup 120 (2.0%), synth_ratio 0.5, amp bf16
+  step    3000/6000  lr 5.17e-04  loss 0.12858  5.7 it/s  eta 0.15h
+  [val 3000]  clip 24.858dB/0.5946   minmax 20.998dB/0.5736   robust 20.706dB/0.5681   | OOD 17.317dB/0.3629 | grad 1.162 hf 2.40
+  [val] new best 24.858 dB -> best.pt
+  step    6000/6000  lr 1.00e-06  loss 0.11819  6.1 it/s  eta 0.00h
+  [val 6000]  clip 25.044dB/0.6084   minmax 21.135dB/0.5864   robust 20.855dB/0.5820   | OOD 18.166dB/0.3814 | grad 1.162 hf 2.35
+  [val] new best 25.044 dB -> best.pt
+[done] best val PSNR 25.044 dB   weights in runs\a_gated
+[data] loading 3200 pairs from train/train ...
+[data] train=2880 val=320 resident on cuda (500 MB, torch.float16)
+[model] config=s head=resize_conv residual=bicubic input_transform=log params=13.32M
+[train] 6000 iters, batch 16, warmup 120 (2.0%), synth_ratio 0.5, amp bf16
+  step    3000/6000  lr 5.17e-04  loss 0.12660  6.1 it/s  eta 0.14h
+  [val 3000]  clip 24.872dB/0.5957   minmax 21.051dB/0.5745   robust 20.741dB/0.5695   | OOD 15.986dB/0.3526 | grad 1.179 hf 2.41
+  [val] new best 24.872 dB -> best.pt
+  step    6000/6000  lr 1.00e-06  loss 0.11800  5.9 it/s  eta 0.00h
+  [val 6000]  clip 25.197dB/0.6115   minmax 21.251dB/0.5890   robust 20.909dB/0.5854   | OOD 16.840dB/0.3737 | grad 1.171 hf 2.35
+  [val] new best 25.197 dB -> best.pt
+[done] best val PSNR 25.197 dB   weights in runs\a_log
+[data] loading 3200 pairs from train/train ...
+[data] train=2880 val=320 resident on cuda (500 MB, torch.float16)
+[model] config=s head=resize_conv residual=none input_transform=log params=13.32M
+[train] 6000 iters, batch 16, warmup 120 (2.0%), synth_ratio 0.5, amp bf16
+  step    3000/6000  lr 5.17e-04  loss 0.13137  5.8 it/s  eta 0.14h
+  [val 3000]  clip 24.921dB/0.5964   minmax 21.083dB/0.5752   robust 20.760dB/0.5704   | OOD 17.903dB/0.3502 | grad 1.152 hf 2.28
+  [val] new best 24.921 dB -> best.pt
+  step    6000/6000  lr 1.00e-06  loss 0.11765  6.1 it/s  eta 0.00h
+  [val 6000]  clip 25.189dB/0.6114   minmax 21.251dB/0.5899   robust 20.915dB/0.5854   | OOD 18.573dB/0.3784 | grad 1.146 hf 2.20
+  [val] new best 25.189 dB -> best.pt
+[done] best val PSNR 25.189 dB   weights in runs\a_both

@@ -13,6 +13,10 @@ outputs_*/
 # so this one is re-included despite the outputs_*/ rule above
 !outputs_final/
 *.log
+# training/ablation logs are kept as evidence for the numbers quoted in the
+# README, so the logs/ directory is re-included despite the *.log rule above
+!logs/
+!logs/*.log
 
 .claude/
 Devens_gt_triptych.png

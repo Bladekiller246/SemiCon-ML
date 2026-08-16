@@ -1,0 +1,15 @@
+[data] loading 3200 pairs from train/train ...
+[data] train=2880 val=320 resident on cuda (500 MB, torch.float16)
+[model] config=s head=resize_conv residual=bicubic input_transform=affine params=13.32M
+[train] 6000 iters, batch 16, warmup 120 (2.0%), synth_ratio 0.5, amp bf16
+  step    3000/6000  lr 5.17e-04  loss 0.12887  6.4 it/s  eta 0.13h
+  [val 3000]  clip 24.846dB/0.5944   minmax 21.034dB/0.5731   robust 20.702dB/0.5682   | OOD 17.464dB/0.3686 | grad 1.165 hf 2.40
+  [val] new best 24.846 dB -> best.pt
+  step    6000/6000  lr 1.00e-06  loss 0.11811  6.7 it/s  eta 0.00h
+  [val 6000]  clip 25.053dB/0.6081   minmax 21.149dB/0.5859   robust 20.848dB/0.5822   | OOD 18.305dB/0.3879 | grad 1.158 hf 2.34
+  [val] new best 25.053 dB -> best.pt
+[done] best val PSNR 25.053 dB   weights in runs\a_base
+[data] loading 3200 pairs from train/train ...
+[data] train=2880 val=320 resident on cuda (500 MB, torch.float16)
+[model] config=s head=resize_conv residual=none input_transform=affine params=13.32M
+[train] 6000 iters, batch 16, warmup 120 (2.0%), synth_ratio 0.5, amp bf16

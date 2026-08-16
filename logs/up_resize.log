@@ -1,0 +1,10 @@
+[data] loading 3200 pairs from train/train ...
+[data] train=2880 val=320 resident on cuda (500 MB, torch.float16)
+[model] config=s head=resize_conv up_mode=resize residual=none input_transform=log params=14.19M
+[train] 6000 iters, batch 16, warmup 120 (2.0%), synth_ratio 0.5, amp bf16
+  step    3000/6000  lr 5.17e-04  loss 0.29479  5.4 it/s  eta 0.16h
+  [val 3000]  clip 16.098dB/0.3769   minmax 14.051dB/0.3479   robust 13.699dB/0.3177   | OOD 12.671dB/0.1745 | grad 1.769 hf 2.05
+  [val] new best 16.098 dB -> best.pt
+  step    6000/6000  lr 1.00e-06  loss 0.27026  5.9 it/s  eta 0.00h
+  [val 6000]  clip 16.017dB/0.3717   minmax 13.125dB/0.3090   robust 13.068dB/0.2951   | OOD 11.744dB/0.1916 | grad 1.637 hf 1.98
+[done] best val PSNR 16.098 dB   weights in runs\up_resize

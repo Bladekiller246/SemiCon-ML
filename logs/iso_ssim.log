@@ -1,0 +1,12 @@
+[data] loading 3200 pairs from train/train ...
+[data] source-aware split: 80 val groups (320 images), leakage check = 0 (must be 0)
+[data] train=2880 val=320 resident on cuda (500 MB, torch.float16)
+[model] config=s head=resize_conv up_mode=pixelshuffle residual=bicubic input_transform=log params=13.32M
+[train] 6000 iters, batch 16, warmup 120 (2.0%), synth_ratio 0.5, amp bf16
+  step    3000/6000  lr 5.17e-04  loss 0.04862  4.9 it/s  eta 0.17h
+  [val 3000]  clip 27.734dB/0.7316   minmax 24.834dB/0.7145   robust 23.754dB/0.7107   | OOD 16.757dB/0.3869 | grad 0.787 hf 0.51
+  [val] new best 27.734 dB -> best.pt
+  step    6000/6000  lr 1.00e-06  loss 0.04239  5.5 it/s  eta 0.00h
+  [val 6000]  clip 28.138dB/0.7446   minmax 25.200dB/0.7266   robust 23.953dB/0.7236   | OOD 17.883dB/0.4290 | grad 0.773 hf 0.52
+  [val] new best 28.138 dB -> best.pt
+[done] best val PSNR 28.138 dB   weights in runs\iso_ssim

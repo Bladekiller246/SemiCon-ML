@@ -321,6 +321,9 @@ results/
   figures/          key result figures (referenced throughout this README)
   diagnostics/      exploratory analysis images from the investigation
   metrics/          per-image PSNR/SSIM/LPIPS CSVs
+logs/               raw training + ablation logs; every number quoted in this
+                    README is traceable to one of these (e.g. final.log holds
+                    the shipped run's full validation curve)
 docs/
   CHECKPOINT.md     detailed rollback reference: every experiment + result
   PROMPT.md         working notes, baselines, ceiling analysis

@@ -1,0 +1,24 @@
+[data] loading 3200 pairs from train/train ...
+[data] source-aware split: 80 val groups (320 images), leakage check = 0 (must be 0)
+[data] train=2880 val=320 resident on cuda (500 MB, torch.float16)
+[model] config=s head=resize_conv up_mode=pixelshuffle residual=bicubic input_transform=log params=13.32M
+[train] 6000 iters, batch 16, warmup 120 (2.0%), synth_ratio 0.5, amp bf16
+  step    3000/6000  lr 5.17e-04  loss 0.07014  5.2 it/s  eta 0.16h
+  [val 3000]  clip 27.852dB/0.7364   minmax 24.975dB/0.7183   robust 23.763dB/0.7163   | OOD 16.917dB/0.4165 | grad 0.753 hf 0.48
+  [val] new best 27.852 dB -> best.pt
+  step    6000/6000  lr 1.00e-06  loss 0.06172  5.1 it/s  eta 0.00h
+  [val 6000]  clip 28.250dB/0.7490   minmax 25.334dB/0.7310   robust 24.007dB/0.7294   | OOD 17.896dB/0.4434 | grad 0.744 hf 0.50
+  [val] new best 28.250 dB -> best.pt
+[done] best val PSNR 28.250 dB   weights in runs\c_all
+[data] loading 3200 pairs from train/train ...
+[data] source-aware split: 80 val groups (320 images), leakage check = 0 (must be 0)
+[data] train=2880 val=320 resident on cuda (500 MB, torch.float16)
+[model] config=s head=resize_conv up_mode=pixelshuffle residual=bicubic input_transform=log params=13.32M
+[train] 6000 iters, batch 16, warmup 120 (2.0%), synth_ratio 0.5, amp bf16
+  step    3000/6000  lr 5.17e-04  loss 0.06358  5.0 it/s  eta 0.17h
+  [val 3000]  clip 28.330dB/0.7475   minmax 25.425dB/0.7304   robust 24.068dB/0.7287   | OOD 16.946dB/0.4253 | grad 0.714 hf 0.47
+  [val] new best 28.330 dB -> best.pt
+  step    6000/6000  lr 1.00e-06  loss 0.05705  5.0 it/s  eta 0.00h
+  [val 6000]  clip 28.574dB/0.7570   minmax 25.743dB/0.7412   robust 24.226dB/0.7376   | OOD 17.921dB/0.4552 | grad 0.720 hf 0.50
+  [val] new best 28.574 dB -> best.pt
+[done] best val PSNR 28.574 dB   weights in runs\c_low
